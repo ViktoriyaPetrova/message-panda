@@ -1,0 +1,9 @@
+# Web framework
+flask
+
+#OpenAI API
+openai
+
+# Python WSGI HTTP server (connects web servers such as nginx to app)
+gunicorn
+

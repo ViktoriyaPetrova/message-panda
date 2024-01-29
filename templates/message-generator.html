@@ -1,0 +1,229 @@
+{% block scripts %}
+<script src="{{ url_for('static', filename='scripts/messageGenerator.js') }}"></script>
+{% endblock %} {% extends "layout.html" %} {% block content %}
+<div class="container-fluid w-75 mt-3 pt-5">
+  <div class="row">
+    <div class="col-lg-5">
+      <h2>Message Details</h2>
+      <!-- FORM ================================================================================-->
+      <form
+        id="form"
+        action="{{ url_for('message-generator') }}"
+        method="post"
+        onsubmit="showSpinner()"
+      >
+        <fieldset>
+          <div class="question-container">
+            <legend class="fs-6">Are you replying to someone?</legend>
+            <i
+              class="fa-regular fa-circle-question ps-1"
+              data-bs-toggle="popover"
+              data-bs-trigger="hover focus"
+              data-bs-container="body"
+              data-bs-placement="right"
+              data-bs-content="If you're replying to someone you can paste their message here. Remember it is good practice to omit any identifiable data (e.g. addresses and phone numbers)."
+            ></i>
+          </div>
+          <div id="replyBtns">
+            <input
+              type="radio"
+              class="btn-check"
+              name="replyBtn"
+              id="yes"
+              value="yes"
+              onclick="handleYesClick()"
+              autocomplete="off"
+              {%if wasSubmitted and userChoices.reply%} checked {%endif%}
+              required
+            />
+            <label class="btn btn-secondary" for="yes">Yes</label>
+
+            <input
+              type="radio"
+              class="btn-check"
+              name="replyBtn"
+              id="no"
+              value="no"
+              onclick="handleNoClick()"
+              autocomplete="off"
+              {%if wasSubmitted and not userChoices.reply%} checked {%endif%}
+              required
+            />
+            <label class="btn btn-secondary" for="no">No</label>
+          </div>
+        </fieldset>
+        {%if wasSubmitted and userChoices.reply%}
+        <div id="replyContainer" class="my-3">
+          <label for="reply">Message you are replying to:</label> <br />
+          <textarea
+            id="reply"
+            name="reply"
+            class="form-control"
+            maxlength="1000"
+            style="height: 200px"
+            oninput="handleReplyInput()"
+            required
+          >{{reply}}</textarea>
+          <span id="replyCount">0/1000 characters used</span>
+        </div>
+        {%else%}
+        <div id="replyContainer" class="my-3"></div>
+        {%endif%}
+        <fieldset>
+          <div class="mb-3">
+            <div class="question-container">
+              <legend class="fs-6">Pick a format for your message:</legend>
+              <i
+                class="fa-regular fa-circle-question ps-1"
+                data-bs-toggle="popover"
+                data-bs-trigger="hover focus"
+                data-bs-container="body"
+                data-bs-placement="right"
+                data-bs-content="Tell OpenAI how it should format your message."
+              ></i>
+            </div>
+            <br />
+            <input
+              type="radio"
+              class="btn-check"
+              name="format"
+              id="email"
+              value="email"
+              autocomplete="off"
+              {%if wasSubmitted and userChoices.email%} checked {%endif%}
+              required
+            />
+            <label class="btn btn-secondary" for="email">Email</label>
+
+            <input
+              type="radio"
+              class="btn-check"
+              name="format"
+              id="text"
+              value="text"
+              autocomplete="off"
+              {%if wasSubmitted and userChoices.text%} checked {%endif%}
+              required
+            />
+            <label class="btn btn-secondary" for="text">Text</label>
+            <input
+              type="radio"
+              class="btn-check"
+              name="format"
+              id="review"
+              value="review"
+              autocomplete="off"
+              {%if wasSubmitted and userChoices.review%} checked {%endif%}
+              required
+            />
+            <label class="btn btn-secondary" for="review">Product Review</label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <div>
+            <div class="question-container">
+              <legend class="fs-6">Pick the tone for your message:</legend>
+              <i
+                class="fa-regular fa-circle-question ps-1"
+                data-bs-toggle="popover"
+                data-bs-trigger="hover focus"
+                data-bs-container="body"
+                data-bs-placement="right"
+                data-bs-content="Tell OpenAI what tone it should set for your message."
+              ></i>
+            </div>
+            <br />
+            <input
+              type="radio"
+              class="btn-check"
+              name="tone"
+              id="casual"
+              value="casual"
+              autocomplete="off"
+              {%if wasSubmitted and userChoices.casual%} checked {%endif%}
+              required
+            />
+            <label class="btn btn-secondary" for="casual">Casual</label>
+            <input
+              type="radio"
+              class="btn-check"
+              name="tone"
+              id="professional"
+              value="professional"
+              autocomplete="off"
+              {%if wasSubmitted and userChoices.professional%} checked {%endif%}
+              required
+            />
+            <label class="btn btn-secondary" for="professional">Professional</label>
+          </div>
+        </fieldset>
+        <div class="my-3">
+          <div class="question-container">
+            <label for="context">Message Context:</label> <br />
+            <i
+              class="fa-regular fa-circle-question ps-1"
+              data-bs-toggle="popover"
+              data-bs-trigger="hover focus"
+              data-bs-container="body"
+              data-bs-placement="right"
+              data-bs-content="Give OpenAI details about your message in your preferred language. Remember it is good practice to omit any identifiable data (e.g. addresses and phone numbers)."
+            ></i>
+          </div>
+          <textarea
+            id="context"
+            name="context"
+            class="form-control"
+            style="height: 200px"
+            maxlength="1000"
+            oninput="handleContextInput()"
+            {%if not wasSubmitted%} placeholder="Describe what you would like to put in your message here..." {%endif%}
+            required
+          >{%if wasSubmitted%}{{context}}{%endif%}</textarea>
+          <span id="contextCount">0/1000 characters used</span>
+        </div>
+        <br />
+        <div class="btn-group">
+          <input class="btn btn-primary-custom" type="submit" value="Submit" />
+          <a class="btn btn-secondary" href="/message-generator">Reset</a>
+        </div>
+      </form>
+    </div>
+    <!-- ARROW ====================================================================================-->
+    <div class="col-2">
+      <img
+        src="../static/images/right-arrow.png"
+        height="46"
+        width="60"
+        class="position-relative d-none d-lg-block top-50 mx-auto"
+        alt="right arrow"
+      />
+    </div>
+    <!-- RESPONSE ==================================================================================-->
+    <div class="position-relative col-lg-5 mt-4 pt-4">
+      {% if response != '' %}
+      <h2>Generated Response</h2>
+      <div class="position-relative response border rounded p-3">
+        <p id="response">{{response}}</p>
+      </div>
+      {% else %}
+      <h2 class="d-none d-lg-block">Generated Response</h2>
+      <div class="position-relative response border rounded d-none d-lg-block">
+        <img
+          id="placeholder"
+          src="../static/images/pandaFiller.png"
+          class="position-absolute top-50 start-50 translate-middle"
+          height="250"
+          width="250"
+          alt="placeholder image of a panda sitting down holding pen and paper with some bamboo behind it"
+        />
+      </div>
+      {% endif %}
+      <i
+        id="loading"
+        class="fa-solid fa-hourglass-start fa-3x position-absolute top-50 start-50 translate-middle"
+        style="display: none"
+      ></i>
+    </div>
+  </div>
+</div>
+{% endblock %}

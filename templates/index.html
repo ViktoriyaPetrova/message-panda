@@ -1,0 +1,145 @@
+{% extends "layout.html" %} {% block content %}
+<!-- HERO ==========================================================================-->
+<section id="hero">
+  <div class="img-background">
+    <div class="text-background">
+      <h1 class="text-center fw-bold p-3">MESSAGE PANDA</h1>
+      <div class="text-center p-2">
+        <img
+          src="../static/images/PandaFaceLogo.png"
+          height="200"
+          width="200"
+          class="img-fluid"
+          alt="Panda face logo with green circuits on its fur"
+        />
+      </div>
+      <h2 class="text-center p-2">AI generated message replies</h2>
+      <h3 class="text-center p-2">Easy to use | No sign up required | Always free</h3>
+      <div class="text-center p-2">
+        <a href="/message-generator" class="btn btn-accent-custom btn-lg" role="button"
+          >Get Started</a
+        >
+      </div>
+    </div>
+  </div>
+</section>
+<!-- HOW TO ==========================================================================-->
+<section id="help">
+  <div class="help-background">
+    <div class="w-75 mx-auto">
+      <h1 class="text-center fw-bold py-5">How to use Message Panda</h1>
+      <div class="row py-5">
+        <div class="col-lg-6 order-2 order-lg-1">
+          <img
+            src="../static/images/reply.png"
+            class="img-fluid"
+            height="480"
+            width="680"
+            alt="screenshot of the reply section of the form"
+          />
+        </div>
+        <div class="col-lg-6 order-1 order-lg-2">
+          <h2>Step 1</h2>
+          <p class="pb-2">
+            Specify if you are replying to someone. If you click yes, a new textbox will appear
+            where you can paste the message you're replying to. For best practices, delete any
+            identifiable information from the pasted message, such as phone numbers and addresses.
+            The textbox has a limit of 1000 max characters.
+          </p>
+        </div>
+      </div>
+      <div class="row py-5">
+        <div class="col-lg-6">
+          <h2>Step 2</h2>
+          <p class="pb-2">
+            Tell ChatGPT if you would like your response to formatted as an email, text, or product
+            review. Additionally, choose if you would like your message to sound more casual or
+            professional. Specifying the tone and format will generate better results.
+          </p>
+        </div>
+        <div class="col-lg-6">
+          <img
+            src="../static/images/form-buttons.png"
+            class="img-fluid"
+            height="480"
+            width="680"
+            alt="screenshot of the form format and tone buttons"
+          />
+        </div>
+      </div>
+      <div class="row py-5">
+        <div class="col-lg-6 order-2 order-lg-1">
+          <img
+            src="../static/images/message-context.png"
+            class="img-fluid"
+            height="480"
+            width="680"
+            alt="Screenshot of the form's user context textarea"
+          />
+        </div>
+        <div class="col-lg-6 order-1 order-lg-2">
+          <h2>Step 3</h2>
+          <p class="pb-2">
+            In your preferred language, tell ChatGPT any details you want included in your message.
+            The more information you add the better, but remember to exclude any identifiable
+            details. Once again the character limit is 1000.
+          </p>
+        </div>
+      </div>
+      <div class="row py-5">
+        <div class="col-lg-6">
+          <h2>Step 4</h2>
+          <p class="pb-2">
+            ChatGPT will generate a message for you in English in your preferred format and tone!
+          </p>
+        </div>
+        <div class="col-lg-6">
+          <img
+            src="../static/images/generated-response.png"
+            class="img-fluid"
+            height="480"
+            width="680"
+            alt="Screenshot of the generated response by ChatGPT"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ABOUT ==========================================================================-->
+<section id="about">
+  <div class="p-5 w-75 mx-auto">
+    <h1 class="text-center fw-bold p-2">About</h1>
+    <h2>About Message Panda</h2>
+    <p>
+      Message Panda was created by Viktoriya Petrova, and it aims to assist individuals with limited
+      English proficiency in composing message replies more effectively. The platform, deployed on
+      Google Cloud, utilizes a stack comprising of Python, Jinja2, JavaScript, Bootstrap, and the
+      OpenAI API.
+    </p>
+    <div class="py-3">
+      <h2 class="pb-3">Copy Right Credit</h2>
+      <p class="p-2">
+        All clip-art and logos were created with
+        <a class="link" href="https://logomakr.com/" target="_blank">LogoMakr</a>.
+      </p>
+      <p class="p-2">
+        AI model used is ChatGPT3.5 courtesy of
+        <a class="link" href="https://openai.com/" target="_blank">OpenAI</a>.
+      </p>
+    </div>
+    <h2>Privacy Policy</h2>
+    <p>
+      Respecting your privacy is important to us. We do not store any information you provide on our
+      servers, and we don't employ third-party cookies or trackers. The context you provide for your
+      messages is solely used for the purpose of generating a response with OpenAI&#39;s ChatGPT3.5.
+      Per OpenAI&#39;s
+      <a class="link" href="https://openai.com/enterprise-privacy" target="_blank">privacy policy</a
+      >: OpenAI will not utilize data submitted by customers via their API to train or improve their
+      models. Any data transmitted through the API is retained for a maximum of 30 days for the
+      purposes of monitoring and preventing abuse and misuse. Subsequently, it will be delete d
+      unless retention is required by law.
+    </p>
+  </div>
+</section>
+{% endblock %}
