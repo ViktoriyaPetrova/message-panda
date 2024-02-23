@@ -1,5 +1,6 @@
 #Presenter for the message-generator page
 from flask import request, render_template
+from markupsafe import escape
 from flask.views import MethodView
 from util import saveUserChoices
 import os
@@ -20,13 +21,13 @@ class MessageGenerator(MethodView):
     def post(self):
         isReply = request.form['replyBtn']
         format = request.form['format']
-        context = request.form['context']
+        context = escape(request.form['context'])
         tone = request.form['tone']
 
         userChoices=saveUserChoices(isReply, format, tone)
 
         if isReply == 'yes':
-            reply = request.form['reply']
+            reply = escape(request.form['reply'])
             content = f"Write a {tone} {format} reply in English to this {format}: {reply}. Incorporate the following in the reply: {context}."
         else:
             content = f"Write a {tone} {format} in English that incorporates the following: {context}."
