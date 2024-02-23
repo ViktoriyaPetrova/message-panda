@@ -7,3 +7,6 @@ openai
 # Python WSGI HTTP server (connects web servers such as nginx to app)
 gunicorn
 
+#CSRF protection
+Flask-WTF
+

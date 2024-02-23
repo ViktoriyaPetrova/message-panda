@@ -1,9 +1,15 @@
 #Register routes and assign presenter go routes 
 import flask
+import os
+from flask_wtf.csrf import CSRFProtect 
 from index import Index
 from messageGenerator import MessageGenerator
 
+flask_secret_key = os.getenv('FLASK_SECRET_KEY')
+
 app = flask.Flask(__name__) 
+app.config['SECRET_KEY'] = flask_secret_key
+csrf = CSRFProtect(app)
 
 #Landing page route
 app.add_url_rule('/',

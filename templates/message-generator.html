@@ -12,6 +12,7 @@
         method="post"
         onsubmit="showSpinner()"
       >
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
         <fieldset>
           <div class="question-container">
             <legend class="fs-6">Are you replying to someone?</legend>
