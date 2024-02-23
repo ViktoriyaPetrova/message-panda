@@ -10,3 +10,6 @@ gunicorn
 #CSRF protection
 Flask-WTF
 
+#Rate limit
+Flask-Limiter
+
