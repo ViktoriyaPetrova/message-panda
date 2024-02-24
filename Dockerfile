@@ -10,8 +10,8 @@ WORKDIR /app
 # Copy the local directory contents to the container's working directory
 COPY . /app
 
-# Install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+# Install the Python packages specified by requirements.txt into the container
+RUN apt update -y && apt install -y python3-pip && pip3 install -r requirements.txt
 
 # Make port available to the world outside this container
 EXPOSE 8000
