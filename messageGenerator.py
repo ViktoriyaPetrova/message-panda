@@ -34,7 +34,7 @@ class MessageGenerator(MethodView):
 
         # GPT 3
         response = client.chat.completions.create(
-        model="gpt-3.5-turbo-1106",
+        model="gpt-4o-mini",
         max_tokens=2000,
         messages=[
             {"role": "system", "content": f"You are a helpful assistant that helps write short and concise {tone} {format} messages."},
